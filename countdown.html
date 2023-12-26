@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to bottom right, #4e8dd8, #ff7e5f);
+      font-family: 'Arial', sans-serif;
+    }
+
+    i {
+        color: #44ff00;
+    }
+
+    #container {
+      text-align: center;
+    }
+
+    #newYearText {
+      font-size: 36px;
+      color: #ffffff;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      display: none;
+    }
+
+    #btnNewYear {
+      background: linear-gradient(to bottom right, #ff5500, #ff9100);
+      color: #ffffff;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    #btnNewYear:hover {
+      background: linear-gradient(to bottom right, #ff9100, #ff5500);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+  <script>
+    function showNewYearText() {
+      var btnNewYear = document.getElementById('btnNewYear');
+      btnNewYear.style.animation = 'fadeOut 1s forwards';
+
+      setTimeout(function () {
+        btnNewYear.style.display = 'none';
+
+        var newYearText = document.getElementById('newYearText');
+        newYearText.style.animation = 'fadeIn 1s forwards';
+        newYearText.style.display = 'block';
+      }, 1000);
+    }
+  </script>
+  <script>  
+    function countdown() {
+        let newYear = new Date(2023, 11, 28);
+
+        newYear.setHours(21, 12, 0);
+
+        let now = new Date();
+        let result = newYear - now;
+
+        let days = Math.trunc(result / 86400000);
+        result = result - (days * 86400000);
+   
+        let hours = Math.trunc(result / 3600000);
+        result = result - (hours * 3600000);
+
+        let minutes = Math.trunc(result / 60000);
+        result = result - (minutes * 60000);
+
+        let seconds = Math.trunc((result / 1000));
+        result = result - (seconds / 1000);
+
+        let result2 = `Ксюня приїде через: ${days} днів ${hours} годин ${minutes} хвилин ${seconds} секунд`;
+
+        document.getElementById('newYearText').textContent = result2;
+    }
+
+    setInterval(countdown, 1000);
+</script>
+</head>
+<body>
+  <div id="container">
+    <button id="btnNewYear" onclick="showNewYearText()">Коли приїде Ксюня?</button>
+    <div id="newYearText"></div>
+  </div>
+</body>
+</html>
