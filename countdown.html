@@ -58,6 +58,22 @@
         opacity: 0;
       }
     }
+
+    /* Анимация снега с использованием JavaScript */
+    .snowflake {
+      position: absolute;
+      color: #fff;
+      font-size: 2em;
+      animation: falling linear infinite;
+    }
+
+    /* Стили для елочки */
+    .christmas-tree {
+      font-size: 5em;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
   </style>
   <script>
     function showNewYearText() {
@@ -104,6 +120,7 @@
 </head>
 <body>
   <div id="container">
+    <div class="christmas-tree">&#127876;</div>
     <button id="btnNewYear" onclick="showNewYearText()">Коли приїде Ксюня?</button>
     <div id="newYearText"></div>
   </div>
