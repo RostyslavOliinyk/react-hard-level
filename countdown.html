@@ -12,9 +12,10 @@
       margin: 0;
       background: linear-gradient(to bottom right, #4e8dd8, #ff7e5f);
       font-family: 'Arial', sans-serif;
+      overflow: hidden; /* Чтобы скрыть снег за пределами экрана */
     }
 
-    i {
+    em {
         color: #44ff00;
     }
 
@@ -57,8 +58,19 @@
       to {
         opacity: 0;
       }
-    }
+    } 
 
+    @keyframes falling {
+      0% {
+        opacity: 0;
+        transform: translateY(-100vh);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(100vh);
+      }
+    }
+    
     /* Анимация снега с использованием JavaScript */
     .snowflake {
       position: absolute;
@@ -110,12 +122,37 @@
         let seconds = Math.trunc((result / 1000));
         result = result - (seconds / 1000);
 
-        let result2 = `Ксюня приїде через: ${days} днів ${hours} годин ${minutes} хвилин ${seconds} секунд`;
+        let result2 = `Ксюня приїде через:<br> <em>${days}</em> днів <em>${hours}</em> годин<br> <em>${minutes}</em> хвилин <em>${seconds}</em> секунд`;
 
-        document.getElementById('newYearText').textContent = result2;
+        // document.getElementById('newYearText').textContent = result2;
+        document.getElementById('newYearText').innerHTML = result2;
     }
 
     setInterval(countdown, 1000);
+</script>
+<script>
+  // Функция для создания снежинок
+
+    function createSnowflake() {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.innerHTML = "&#10052;"; // Замените на ваш символ или изображение
+      document.body.appendChild(snowflake);
+      
+      const startPosition = Math.random() * window.innerWidth;
+      const animationDuration = Math.random() * 5 + 5;
+      
+      snowflake.style.left = startPosition + "px";
+      snowflake.style.animationDuration = animationDuration + "s";
+      
+      // Удаление снежинки после завершения анимации
+      snowflake.addEventListener("animationend", () => {
+        snowflake.remove();
+      });
+    }
+    
+    // Создание снежинок каждую секунду
+  setInterval(createSnowflake, 1000);
 </script>
 </head>
 <body>
