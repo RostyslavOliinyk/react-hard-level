@@ -1,48 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Воспроизведение видео</title>
+        <title>До приїзду Ксюні</title>
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS -->
         <style>
-            body,
-            html {
-                margin: 0;
-                padding: 0;
+            /* CSS для установки фонового изображения и центрирования */
+            html,
+            body {
+                overflow: hidden;
                 height: 100%;
+            }
+
+            body {
+                background-image: url("image.gif");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+                /* Добавляем минимальную высоту, чтобы контент не сливался с фоном */
+                min-height: 100vh;
+            }
+
+            .container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #f0f0f0;
+                height: 100vh;
+                text-align: center;
             }
-            video {
-                width: 80%;
-                max-width: 800px;
+
+            .fade-text {
+                opacity: 1;
+                transition: opacity 1s ease;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Мягкая тень */
+                color: rgba(
+                    255,
+                    255,
+                    255,
+                    0.9
+                ); /* Белый цвет текста с небольшой прозрачностью */
+                background: rgba(33, 32, 32, 0.8); /* Размытый белый фон */
+                backdrop-filter: blur(30px); /* Размытие фона */
+                padding: 10px 20px; /* Добавляем отступы для улучшенного визуального эффекта */
+                border-radius: 10px; /* Закругляем углы для более гладкого вида */
             }
-            .play-button {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: rgba(255, 255, 255, 0.5);
-                padding: 20px 30px;
-                border-radius: 10px;
-                cursor: pointer;
+
+            .hidden {
+                opacity: 0;
             }
         </style>
     </head>
     <body>
-        <video id="myVideo" src="video/video.mp4" loop muted></video>
-        <div class="play-button" onclick="playVideo()">Play</div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-4 fade-text" id="arrivalText">
+                        До приїзду Ксюні❤
+                    </h1>
+                    <h1
+                        class="display-4 fade-text hidden"
+                        id="countdownText"
+                    ></h1>
+                    <h1 class="display-4 fade-text hidden" id="arrivalMessage">
+                        Ксюня❤ вже тут!
+                    </h1>
+                </div>
+            </div>
+        </div>
 
+        <!-- Bootstrap JS и скрипт для таймера -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            function playVideo() {
-                var video = document.getElementById("myVideo");
-                video.muted = false; // включить звук, если он был заглушен
-                video.play();
-                var playButton = document.querySelector(".play-button");
-                playButton.style.display = "none";
+            // Функция для запуска анимации и таймера
+            function startAnimation() {
+                // Плавное исчезновение первого сообщения через 2 секунды
+                setTimeout(function () {
+                    document
+                        .getElementById("arrivalText")
+                        .classList.add("hidden");
+                    // Плавное появление сообщения с отсчетом
+                    document
+                        .getElementById("countdownText")
+                        .classList.remove("hidden");
+                    // Запуск таймера обратного отсчета
+                    countdown();
+                }, 3000);
             }
+
+            // Функция для отображения таймера обратного отсчета
+            function countdown() {
+                // Задаем дату окончания
+                var endDate = new Date("2024-04-18T20:00:00").getTime();
+
+                // Обновляем таймер каждую секунду
+                var timer = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = endDate - now;
+
+                    // Рассчитываем дни, часы, минуты и секунды
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor(
+                        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                    );
+                    var minutes = Math.floor(
+                        (distance % (1000 * 60 * 60)) / (1000 * 60)
+                    );
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Обновляем текст таймера
+                    document.getElementById("countdownText").innerHTML =
+                        "Залишилось " +
+                        days +
+                        " днів " +
+                        hours +
+                        " годин " +
+                        minutes +
+                        " хвилин " +
+                        seconds +
+                        " секунд";
+
+                    // Если таймер истек, показываем сообщение о прибытии Ксюни и очищаем таймер
+                    if (distance < 0) {
+                        clearInterval(timer);
+                        document
+                            .getElementById("arrivalText")
+                            .classList.add("hidden");
+                        document
+                            .getElementById("countdownText")
+                            .classList.add("hidden");
+                        document
+                            .getElementById("arrivalMessage")
+                            .classList.remove("hidden");
+                    }
+                }, 1000);
+            }
+
+            // Запускаем функцию анимации при загрузке страницы
+            window.onload = function () {
+                startAnimation();
+            };
         </script>
     </body>
 </html>
