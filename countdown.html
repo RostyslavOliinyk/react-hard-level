@@ -3,50 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Автоматическое видео воспроизведение</title>
-        <!-- Bootstrap CSS -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-giJF6kkoqN8pVrYZ6iWNm1Pv5V5v8Cc7fkk9wKdflE+EUJxtVxtEStv93O1b1Z6J"
-            crossorigin="anonymous"
-        />
+        <title>Воспроизведение видео</title>
         <style>
-            /* CSS для позиционирования видео по центру */
-            .video-container {
-                position: relative;
-                width: 100%;
-                padding-top: 56.25%; /* 16:9 Aspect Ratio (высота видео деленная на ширину видео) */
-            }
-            .video {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
+            body,
+            html {
+                margin: 0;
+                padding: 0;
                 height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f0f0f0;
+            }
+            video {
+                width: 80%;
+                max-width: 800px;
             }
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <!-- Контейнер для видео -->
-                    <div class="video-container">
-                        <video class="video" autoplay loop muted>
-                            <source src="video/ivideo.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bootstrap JS (необязательно, если вы не планируете использовать интерактивные элементы) -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pwFHA+L2r0iTsbdA65e4N8C6y8XkZ3Z71F1f0WYYBv/7kEK3XmIYYGj0Ug0e1b6Z"
-            crossorigin="anonymous"
-        ></script>
+        <video src="ivideo.mp4" autoplay loop controls></video>
     </body>
 </html>
