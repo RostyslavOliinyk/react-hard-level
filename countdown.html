@@ -19,9 +19,30 @@
                 width: 80%;
                 max-width: 800px;
             }
+            .play-button {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 20px 30px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
-        <video src="video/video.mp4" autoplay loop muted></video>
+        <video id="myVideo" src="video/video.mp4" loop muted></video>
+        <div class="play-button" onclick="playVideo()">Play</div>
+
+        <script>
+            function playVideo() {
+                var video = document.getElementById("myVideo");
+                video.muted = false; // включить звук, если он был заглушен
+                video.play();
+                var playButton = document.querySelector(".play-button");
+                playButton.style.display = "none";
+            }
+        </script>
     </body>
 </html>
